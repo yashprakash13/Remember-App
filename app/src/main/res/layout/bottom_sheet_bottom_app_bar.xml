@@ -1,8 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lin_sort_by_recent_words"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/normal_back_white_press">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_sort_recent_24dp"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/normal_padding"
+                android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_by_recent_words"
+                android:textSize="@dimen/standard_text_size"
+                android:fontFamily="@font/font_raleway"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/normal_padding"
+                />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_sort_by_alpha_words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/normal_back_white_press">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_by_alpha_black_24dp"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/normal_padding"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_by_a_z_order"
+            android:textSize="@dimen/standard_text_size"
+            android:fontFamily="@font/font_raleway"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/normal_padding"
+            android:background="@drawable/normal_back_white_press"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_gotosettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/normal_back_white_press">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings_black_24dp"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/normal_padding"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textSize="@dimen/standard_text_size"
+            android:fontFamily="@font/font_raleway"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/normal_padding"
+            android:background="@drawable/normal_back_white_press"
+            />
+    </LinearLayout>
+
+
+    </LinearLayout>
 
 
 

@@ -22,6 +22,9 @@
     <string name="change_list_appearance">Change List Appearance</string>
 
     <string name="layout_pref_key">save.newwords.vocab.remember.LAYOUT_PREF_KEY</string>
+    <string name="sort_by_recent_words">Sort by Recent Words</string>
+    <string name="sort_by_a_z_order">Sort by A-Z order</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
