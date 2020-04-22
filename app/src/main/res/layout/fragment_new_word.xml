@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.NewWordFragment"
+    android:background="@color/colorBack">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/high_margin"
+            android:layout_marginTop="@dimen/high_margin"
+            android:layout_marginEnd="@dimen/high_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:fontFamily="@font/font_raleway"
+            android:gravity="center"
+            android:padding="@dimen/standard_padding"
+            android:text="@string/new_quote_label"
+            android:textSize="@dimen/standard_text_size"
+            android:textStyle="bold" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_wordname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_word_name"
+        app:counterEnabled="true"
+        app:counterMaxLength="26"
+        app:boxStrokeWidth="2dp"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_margin="@dimen/high_margin"
+        android:padding="@dimen/standard_padding">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/font_raleway"
+            android:cursorVisible="true"
+            android:maxLength="26"
+            android:maxLines="1"
+            android:inputType="text|textCapWords"
+            android:textSize="@dimen/standard_text_size"
+            android:imeOptions="actionNext"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_wordMeaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_meaning"
+            app:counterEnabled="true"
+            app:counterMaxLength="97"
+            app:boxBackgroundMode="outline"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginStart="@dimen/high_margin"
+            android:layout_marginEnd="@dimen/high_margin"
+            android:layout_marginBottom="@dimen/high_margin"
+            app:boxStrokeWidth="2dp"
+            android:padding="@dimen/standard_padding">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sub_standard_text_size"
+                android:fontFamily="@font/font_raleway"
+                android:cursorVisible="true"
+                android:gravity="top|start"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLength="97"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/high_margin"
+            android:padding="@dimen/standard_padding"
+            android:background="@drawable/transparent_black_outline_back"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/small_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/small_margin"
+                >
+
+                <ImageButton
+                    android:id="@+id/imgbtn_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mic_black_24dp"
+                    android:background="@drawable/circle_back_white"
+                    android:layout_marginEnd="@dimen/high_margin"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_tap_to_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/standard_padding"
+                    android:inputType="textMultiLine"
+                    android:text="@string/label_tap_to_record"
+                    android:fontFamily="@font/font_raleway"
+                    android:layout_marginEnd="@dimen/high_margin"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imgbtn_delete_rec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close_black_24dp"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/high_margin"
+                android:padding="@dimen/high_padding"
+                app:srcCompat="@drawable/ic_done_black_24dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_back_white" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/high_margin"
+                android:padding="@dimen/high_padding"
+                app:srcCompat="@drawable/ic_delete_black_24dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_back_white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

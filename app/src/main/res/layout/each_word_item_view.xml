@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/small_corner_rad"
+        android:elevation="@dimen/small_ele"
+        android:layout_margin="@dimen/small_margin">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_word_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/standard_text_size"
+                    android:fontFamily="@font/font_raleway"
+                    android:textStyle="normal"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:padding="@dimen/standard_padding"
+                    android:maxLength="97"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <ImageButton
+                    android:id="@+id/imgbtn_hear_pronun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/high_padding"
+                    android:src="@drawable/ic_volume_up_black_24dp"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/colorAccent"
+                    android:contentDescription="@string/hear_pronunciation"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_meaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:text=""
+                android:fontFamily="@font/font_raleway"
+                android:textStyle="italic"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:padding="@dimen/standard_padding"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imgbtn_show_meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/standard_margin"
+            android:padding="@dimen/standard_padding"
+            app:srcCompat="@drawable/ic_eye_black_24dp"
+            android:background="@android:color/transparent"
+            android:tint="@color/colorPrimaryDark"
+            android:contentDescription="@string/see_meaning"
+            />
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

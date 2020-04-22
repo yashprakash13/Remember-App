@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="layout_pref_linear">121612</integer>
+    <integer name="layout_pref_grid">121607</integer>
+</resources>

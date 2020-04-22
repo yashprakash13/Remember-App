@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="standard_margin">7dp</dimen>
+    <dimen name="big_standard_margin">15dp</dimen>
+    <dimen name="high_margin">29dp</dimen>
+    <dimen name="higher_margin">49dp</dimen>
+    <dimen name="very_very_very_high_margin">77dp</dimen>
+    <dimen name="def_elevation">7dp</dimen>
+    <dimen name="def_card_top_rad">19dp</dimen>
+    <dimen name="standard_rad">5dp</dimen>
+    <dimen name="large_text_size">31sp</dimen>
+    <dimen name="abs_x_left">23dp</dimen>
+    <dimen name="abs_y_top">23dp</dimen>
+    <dimen name="small_text_size">15sp</dimen>
+    <dimen name="standard_text_size">23sp</dimen>
+    <dimen name="each_corner_rad">17dp</dimen>
+    <dimen name="small_corner_rad">4dp</dimen>
+    <dimen name="normal_margin">13dp</dimen>
+    <dimen name="card_folder_text_size">17sp</dimen>
+    <dimen name="card_number_of_quotes_text_size">15sp</dimen>
+    <dimen name="card_last_upd_text_size">15sp</dimen>
+    <dimen name="standard_padding">7dp</dimen>
+    <dimen name="larger_rad">23dp</dimen>
+    <dimen name="high_rad">21dp</dimen>
+    <dimen name="sub_standard_text_size">19sp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="standard_elevation">13dp</dimen>
+    <dimen name="high_padding">19dp</dimen>
+    <dimen name="small_ele">5dp</dimen>
+    <dimen name="app_bar_height">56dp</dimen>
+</resources>

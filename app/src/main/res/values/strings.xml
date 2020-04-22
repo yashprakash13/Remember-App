@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Remember</string>
+    <string name="label_search">Search</string>
+    <string name="new_quote_label">New Word</string>
+    <string name="label_word_name">Word</string>
+    <string name="label_meaning">Meaning… (optional)</string>
+    <string name="label_tap_to_record">Tap and hold to record a pronunciation</string>
+    <string name="permissions_req">Permissions required</string>
+    <string name="permissions_req_desc">Permissions of recording audio and writing to internal storage is needed to store words.</string>
+    <string name="okay_label">Okay!</string>
+    <string name="error_word_name">Please type the word name.</string>
+    <string name="toast_word_saved">Word Saved!</string>
+    <string name="toast_word_discarded">Word discarded.</string>
+    <string name="label_playing">Playing...</string>
+    <string name="label_audio_recorded">Audio recorded. Tap here to listen. Tap and hold the button to record again.</string>
+    <string name="label_started_recording">Started recording...</string>
+    <string name="placeholder_word_name">Marvelous</string>
+    <string name="placeholder_word_mean">Extraordinarily great</string>
+    <string name="see_meaning">See meaning</string>
+    <string name="hear_pronunciation">Hear Pronunciation</string>
+
+    <string name="change_list_appearance">Change List Appearance</string>
+
+    <string name="layout_pref_key">save.newwords.vocab.remember.LAYOUT_PREF_KEY</string>
+
+
+</resources>
