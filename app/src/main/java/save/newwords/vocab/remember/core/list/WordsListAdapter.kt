@@ -55,12 +55,16 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
      */
     class WordItemViewHolder(view: View): RecyclerView.ViewHolder(view){
 
+        //item ids
         private var txtName: TextView = view.txt_word_text
         private var txtMean: TextView = view.txt_meaning
         private var imgBtnShowMean: ImageButton = view.imgbtn_show_meaning
+        private var imgBtnHearPronunciation: ImageButton = view.imgbtn_hear_pronun
 
         fun bind (word: Word, clickListener: (Word) -> Unit){
             txtName.text = word.name
+
+            //if meaning is null, don't show the show-meaning button
             if (word.meaning != null){
                 txtMean.text = word.meaning
             }else {
@@ -69,12 +73,17 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
                 imgBtnShowMean.dontShow()
             }
 
+            //if audio is null, don't show the play pronunciation button
+            if (word.audioPath == null){
+                imgBtnHearPronunciation.dontShow()
+            }
+
             itemView.setOnClickListener{
                 clickListener(word)
             }
+            //to show and hide the meaning in list
             imgBtnShowMean.setOnClickListener {
                 txtMean.toggleVisibility()
-
             }
         }
     }
@@ -84,15 +93,24 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
      */
     class WordItemViewHolderGrid(view: View): RecyclerView.ViewHolder(view){
 
+        //item ids
         private var txtName: TextView = view.txt_word_text_grid
         private var txtMean: TextView = view.txt_word_mean_grid
+        private var imgBtnHearPronunciation : ImageButton = view.imgbtn_hear_pronun_grid
 
         fun bind (word: Word, clickListener: (Word) -> Unit){
             txtName.text = word.name
+
+            //if meaning is null, don't show the show-meaning button
             if (word.meaning != null){
                 txtMean.text = word.meaning
             }else {
                 txtMean.visibility = View.GONE
+            }
+
+            //if audio is null, don't show the play pronunciation button
+            if (word.audioPath == null){
+                imgBtnHearPronunciation.dontShow()
             }
 
             itemView.setOnClickListener{

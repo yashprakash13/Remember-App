@@ -57,7 +57,9 @@ fun View.getViewVisibility() : Int {
     return visibility
 }
 
-
+/**
+ * helper function to convert a drawable xml to bitmap image
+ */
 fun drawableToBitmap(drawable: Drawable): Bitmap? {
     if (drawable is BitmapDrawable) {
         return drawable.bitmap

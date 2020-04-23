@@ -87,9 +87,10 @@ class ListFragment : Fragment(), (Word) -> Unit {
             if (pagedList != null){
                 adapter.submitList(pagedList)
             }
+            //TODO: Show empty recyclerview text/image in the else condition
         })
 
-        //on new fab button clicked
+        //on new word fab button clicked
         fab_new.setOnClickListener{
             navigateToNewWordFrag()
         }
@@ -97,6 +98,7 @@ class ListFragment : Fragment(), (Word) -> Unit {
         //for the bottom-app-bar bottomsheet through navigation icon
         setUpBottomSheetNavigation()
     }
+
 
     /**
      * Nav Bottom Sheet functionalities implemented
@@ -149,7 +151,8 @@ class ListFragment : Fragment(), (Word) -> Unit {
      * Set Layout for recyclerview based on sharedpref saved value
      * set number of columns dynamically by
      * calculating the width of screen through
-     * helper function @see CommonUses.getNumColumns() function
+     * helper function
+     * @see getNumColumns function
      */
     private fun setLayoutForRecyclerView() {
         val prefLayoutManager = activity?.getSharedPreferences(getString(R.string.layout_pref_key), Context.MODE_PRIVATE)
@@ -182,11 +185,18 @@ class ListFragment : Fragment(), (Word) -> Unit {
         //TODO: Impelement click on word actions
     }
 
+
+    /**
+     * Overidden method for menu inflation through bottom app bar
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_bottom_app_bar, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    /**
+     * Overrriden method for menu selection options through bottom app bar
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_change_layout -> {
@@ -235,6 +245,7 @@ class ListFragment : Fragment(), (Word) -> Unit {
     fun deleteWord(name: String){
         viewModel.deleteWord(name)
     }
+
 
     /**
      * Helper function to restore/undo swipe deleted word

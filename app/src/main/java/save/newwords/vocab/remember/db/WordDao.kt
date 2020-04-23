@@ -16,6 +16,9 @@ interface WordDao {
     @Query ("Select * from word_table")
     fun getAllWordsPaged() : DataSource.Factory<Int, Word>
 
+    @Query("Select * from word_table order by name")
+    fun getAllWordsPagedAlphabetically() : DataSource.Factory<Int, Word>
+
     @Query("Delete from word_table where name like :name")
     fun deleteWord(name: String)
 

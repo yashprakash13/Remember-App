@@ -64,6 +64,9 @@ class WordsListViewModel(private val repository: WordRepository): ViewModel() {
         }
     }
 
+    /**
+     * To cancel the coroutine jobs when view model is deleted upon activity close
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

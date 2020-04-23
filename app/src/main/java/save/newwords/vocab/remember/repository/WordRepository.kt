@@ -15,6 +15,9 @@ class WordRepository(private val database: WordDatabase) {
 
     fun getAllWordsRoomPaged() : DataSource.Factory<Int, Word> = database.wordDao().getAllWordsPaged()
 
+    fun getAllWordsRoomPagedAlphabetically() : DataSource.Factory<Int, Word>
+            = database.wordDao().getAllWordsPagedAlphabetically()
+
     fun saveWordToDb(word: Word){
         CoroutineScope(Dispatchers.IO).launch {
             database.wordDao().insertWord(word)
