@@ -208,8 +208,13 @@ class ListFragment : Fragment(), (Word) -> Unit {
         }
 
         lin_gotosettings.setOnClickListener {
-            //TODO: Implement go to settings action
+            navigateToOptionsFrag()
+
         }
+    }
+
+    private fun navigateToOptionsFrag() {
+        Navigation.findNavController(requireView()).navigate(R.id.action_listFragment_to_optionsFragment)
     }
 
 
