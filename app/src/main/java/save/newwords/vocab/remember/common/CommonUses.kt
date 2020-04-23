@@ -1,6 +1,9 @@
 package save.newwords.vocab.remember.common
 
+import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
@@ -40,11 +43,16 @@ fun View.toggleVisibility() {
         View.VISIBLE
     }
 }
-
+/**
+ * ext func to show a view
+ */
 fun View.show() {
     visibility = View.VISIBLE
 }
 
+/**
+* ext func to not show a view
+*/
 fun View.dontShow() {
     visibility = View.GONE
 }
@@ -75,6 +83,25 @@ fun drawableToBitmap(drawable: Drawable): Bitmap? {
     return bitmap
 }
 
+/**
+ * ext function to get instance of shared prefs
+ */
+fun Activity.getSharedPrefsFor(key: Int) : SharedPreferences{
+    return getSharedPreferences(getString(key), Context.MODE_PRIVATE)
+}
+
+/**
+ * ext function to change shared prefs
+ */
+fun Activity.changeSharedPrefTo(prefLayoutManager: SharedPreferences, key: Int, whatToPut: Any, type: Int ){
+    //1 means shared pref is of int type, so perform int operation
+    if (type == 1){
+        with(prefLayoutManager.edit()){
+            putInt(getString(key), whatToPut as Int)
+            apply()
+        }
+    }
+}
 
 
 

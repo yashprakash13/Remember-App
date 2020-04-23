@@ -2,4 +2,7 @@
 <resources>
     <integer name="layout_pref_linear">121612</integer>
     <integer name="layout_pref_grid">121607</integer>
+
+    <integer name="list_sort_pref_recent">12191618</integer>
+    <integer name="list_sort_pref_alpha">12191601</integer>
 </resources>

@@ -1,6 +1,7 @@
 package save.newwords.vocab.remember.ui
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -22,9 +23,7 @@ import kotlinx.android.synthetic.main.each_word_item_view_grid.view.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
 import save.newwords.vocab.remember.R
-import save.newwords.vocab.remember.common.drawableToBitmap
-import save.newwords.vocab.remember.common.getNumColumns
-import save.newwords.vocab.remember.common.makeToast
+import save.newwords.vocab.remember.common.*
 import save.newwords.vocab.remember.core.list.WordsListAdapter
 import save.newwords.vocab.remember.core.list.WordsListViewModel
 import save.newwords.vocab.remember.core.list.WordsListViewModelFactory
@@ -219,22 +218,20 @@ class ListFragment : Fragment(), (Word) -> Unit {
 
     /**
      * Change the value of shared pref when the layout change button is clicked
+     * @see getSharedPrefsFor function for getting SP instance
+     * @see changeSharedPrefTo function for changing SP instance
      */
     private fun changeSharedPrefsForLayout() {
-        val prefLayoutManager = activity?.getSharedPreferences(getString(R.string.layout_pref_key), Context.MODE_PRIVATE)
+        val prefLayoutManager = activity?.getSharedPrefsFor(R.string.layout_pref_key)
         val defValue = resources.getInteger(R.integer.layout_pref_linear)
         val prefLayout = prefLayoutManager!!.getInt(getString(R.string.layout_pref_key), defValue)
 
         if (prefLayout == resources.getInteger(R.integer.layout_pref_grid)) {
-                with(prefLayoutManager.edit()) {
-                    putInt(getString(R.string.layout_pref_key), resources.getInteger(R.integer.layout_pref_linear))
-                    apply()
-                }
+                activity?.changeSharedPrefTo(prefLayoutManager, R.string.layout_pref_key,
+                resources.getInteger(R.integer.layout_pref_linear), 1)
         }else{
-            with(prefLayoutManager.edit()) {
-                putInt(getString(R.string.layout_pref_key), resources.getInteger(R.integer.layout_pref_grid))
-                apply()
-            }
+            activity?.changeSharedPrefTo(prefLayoutManager, R.string.layout_pref_key,
+                resources.getInteger(R.integer.layout_pref_grid), 1)
         }
     }
 

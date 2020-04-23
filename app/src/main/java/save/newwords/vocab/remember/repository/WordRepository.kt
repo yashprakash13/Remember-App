@@ -13,7 +13,8 @@ class WordRepository(private val database: WordDatabase) {
 
     fun getAllWordsRoom(): LiveData<List<Word>> = database.wordDao().getAllWords()
 
-    fun getAllWordsRoomPaged() : DataSource.Factory<Int, Word> = database.wordDao().getAllWordsPaged()
+    fun getAllWordsRoomPaged() : DataSource.Factory<Int, Word>
+            = database.wordDao().getAllWordsPaged()
 
     fun getAllWordsRoomPagedAlphabetically() : DataSource.Factory<Int, Word>
             = database.wordDao().getAllWordsPagedAlphabetically()
