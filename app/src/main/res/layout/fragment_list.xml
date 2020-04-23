@@ -44,6 +44,7 @@
             android:backgroundTint="@color/colorAccent"
             />
 
+        <include layout="@layout/app_bar_main_bottom_sheet" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.app_bar_main_bottom_sheet.*
 import kotlinx.android.synthetic.main.each_word_item_view.view.*
 import kotlinx.android.synthetic.main.each_word_item_view_grid.view.*
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import save.newwords.vocab.remember.R
 import save.newwords.vocab.remember.common.drawableToBitmap
 import save.newwords.vocab.remember.common.getNumColumns
+import save.newwords.vocab.remember.common.makeToast
 import save.newwords.vocab.remember.core.list.WordsListAdapter
 import save.newwords.vocab.remember.core.list.WordsListViewModel
 import save.newwords.vocab.remember.core.list.WordsListViewModelFactory
@@ -89,6 +92,43 @@ class ListFragment : Fragment(), (Word) -> Unit {
         //on new fab button clicked
         fab_new.setOnClickListener{
             navigateToNewWordFrag()
+        }
+
+        //for the bottom-app-bar bottomsheet through navigation icon
+        setUpBottomSheetNavigation()
+    }
+
+    /**
+     * Nav Bottom Sheet functionalities implemented
+     */
+    private fun setUpBottomSheetNavigation() {
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_main_app_bar)
+        //originally, it should be hidden
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        //expand on nav btn click
+        bottom_app_bar.setNavigationOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        //close on close btn click
+        imgbtn_close_bottom_sheet_main.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        /**
+         * Click listeners for the items in the bottom sheet
+         */
+        lin_sort_by_recent_words.setOnClickListener {
+
+        }
+
+        lin_sort_by_alpha_words.setOnClickListener {
+
+        }
+
+        lin_gotosettings.setOnClickListener {
+
         }
     }
 

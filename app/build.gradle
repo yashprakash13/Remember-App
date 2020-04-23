@@ -54,7 +54,7 @@ dependencies {
     // For Kotlin use paging-runtime-ktx
 
     //Material Design
-    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
 
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
