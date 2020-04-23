@@ -13,13 +13,25 @@
         <action
             android:id="@+id/action_listFragment_to_newWordFragment"
             app:destination="@id/newWordFragment"
-            app:launchSingleTop="false" />
+            app:launchSingleTop="false"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"/>
         <action
             android:id="@+id/action_listFragment_to_optionsFragment"
-            app:destination="@id/optionsFragment" />
+            app:destination="@id/optionsFragment"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"/>
         <action
             android:id="@+id/action_listFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/newWordFragment"

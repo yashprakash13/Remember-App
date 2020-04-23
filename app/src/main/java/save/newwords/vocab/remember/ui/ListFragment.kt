@@ -209,7 +209,7 @@ class ListFragment : Fragment(), (Word) -> Unit {
 
         lin_gotosettings.setOnClickListener {
             navigateToOptionsFrag()
-
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
