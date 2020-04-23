@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 import save.newwords.vocab.remember.db.Word
 import save.newwords.vocab.remember.repository.WordRepository
 
-class WordsListViewModel(private val repository: WordRepository): ViewModel() {
+class WordsListViewModel(private val repository: WordRepository, private val sortBy: Int): ViewModel() {
 
     //scope to perform db functions in viewmodel
     private var viewModelJob = Job()
@@ -25,9 +25,18 @@ class WordsListViewModel(private val repository: WordRepository): ViewModel() {
 
 
     init {
-        val factory: DataSource.Factory<Int, Word> = repository.getAllWordsRoomPaged()
-        val pagedListBuilder = LivePagedListBuilder<Int, Word>(factory, 10)
-        wordsLiveData = pagedListBuilder.build()
+        /**
+         * 0 means recent words, 1 means by alphabetical order
+         */
+        wordsLiveData = if (sortBy == 0) {
+            val factory: DataSource.Factory<Int, Word> = repository.getAllWordsRoomPaged()
+            val pagedListBuilder = LivePagedListBuilder<Int, Word>(factory, 10)
+            pagedListBuilder.build()
+        }else{
+            val factoryAlpha: DataSource.Factory<Int, Word> = repository.getAllWordsRoomPagedAlphabetically()
+            val pagedListBuilderAlpha = LivePagedListBuilder<Int, Word>(factoryAlpha, 10)
+            pagedListBuilderAlpha.build()
+        }
     }
 
     /**

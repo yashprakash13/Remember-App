@@ -1,6 +1,7 @@
 package save.newwords.vocab.remember.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.*
 import android.graphics.drawable.Drawable
@@ -66,12 +67,8 @@ class ListFragment : Fragment(), (Word) -> Unit {
         //set the bottom app bar
         (requireActivity() as AppCompatActivity).setSupportActionBar(bottom_app_bar)
 
-        //init viewmodel instance
-        val factory = WordsListViewModelFactory(WordRepository((WordDatabase.getInstance(requireActivity()))))
-        viewModel = ViewModelProvider(this, factory).get(WordsListViewModel::class.java)
-
         /*
-        attach layoutmanager to recyclerview and observe for items
+        attach layoutmanager to recyclerview
          */
         setLayoutForRecyclerView()
 
@@ -79,15 +76,11 @@ class ListFragment : Fragment(), (Word) -> Unit {
         adapter = WordsListAdapter(requireActivity(), layoutManager, this)
         recy_words_list.adapter = adapter
 
+        //init view model according to the sort by pref
+        setUpViewModelListObserver()
+
         //enable swipe on recyclerview items with ItemTouchHelper object
         enableSwipe()
-
-        viewModel.getWordsPagedList().observe(viewLifecycleOwner, Observer {pagedList ->
-            if (pagedList != null){
-                adapter.submitList(pagedList)
-            }
-            //TODO: Show empty recyclerview text/image in the else condition
-        })
 
         //on new word fab button clicked
         fab_new.setOnClickListener{
@@ -96,6 +89,92 @@ class ListFragment : Fragment(), (Word) -> Unit {
 
         //for the bottom-app-bar bottomsheet through navigation icon
         setUpBottomSheetNavigation()
+    }
+
+    /**
+     * to change the sort by preference
+     * @param changeTo : the integer value(recent or alpha) to change to
+     */
+    private fun changeSortByPreference(changeTo: Int){
+        val preferences = activity?.getSharedPrefsFor(R.string.sort_by_pref_key)
+        val defValue = resources.getInteger(R.integer.list_sort_pref_recent)
+
+        val currentValue = preferences!!.getInt(getString(R.string.sort_by_pref_key), defValue)
+
+        if ((currentValue != changeTo) && (changeTo == resources.getInteger(R.integer.list_sort_pref_recent))){
+            activity?.changeSharedPrefTo(
+                preferences, R.string.sort_by_pref_key,
+                resources.getInteger(R.integer.list_sort_pref_recent),
+                resources.getInteger(R.integer.pref_is_of_int_type))
+            refreshActivity()
+        }else if ((currentValue != changeTo) && (changeTo == resources.getInteger(R.integer.list_sort_pref_alpha))){
+            activity?.changeSharedPrefTo(
+                preferences, R.string.sort_by_pref_key,
+                resources.getInteger(R.integer.list_sort_pref_alpha),
+                resources.getInteger(R.integer.pref_is_of_int_type))
+            refreshActivity()
+
+        }
+    }
+
+    /**
+     * refresh activity for displaying the new sorted list
+     */
+    private fun refreshActivity() {
+        val i = Intent(this.activity, MainActivity::class.java)
+        this.activity?.finish()
+        startActivity(i)
+    }
+
+    /**
+     * set up the view model acc to shared pref sort by
+     */
+    private fun setUpViewModelListObserver(){
+        val preferences = activity?.getSharedPrefsFor(R.string.sort_by_pref_key)
+        val defValue = resources.getInteger(R.integer.list_sort_pref_recent)
+
+        val currentValue = preferences!!.getInt(getString(R.string.sort_by_pref_key), defValue)
+
+        if (currentValue == resources.getInteger(R.integer.list_sort_pref_recent)){
+            setUpRecentWordsPagedList()
+        }else{
+            setUpAlphaWordsPagedList()
+        }
+    }
+
+    /**
+     * helper function to
+     * set up observer on pagedlist
+     * sort by alphabetically
+     */
+    private fun setUpAlphaWordsPagedList() {
+        val factory = WordsListViewModelFactory(WordRepository((WordDatabase.getInstance(requireActivity()))), 1)
+        viewModel = ViewModelProvider(this, factory).get(WordsListViewModel::class.java)
+
+        viewModel.getWordsPagedList().observe(viewLifecycleOwner, Observer {pagedList ->
+            if (pagedList != null){
+                adapter.submitList(pagedList)
+            }
+            //TODO: Show empty recyclerview text/image in the else condition
+        })
+
+
+    }
+    /**
+     * helper function to
+     * set up observer on pagedlist
+     * sort by recent words
+     */
+    private fun setUpRecentWordsPagedList() {
+        val factory = WordsListViewModelFactory(WordRepository((WordDatabase.getInstance(requireActivity()))), 0)
+        viewModel = ViewModelProvider(this, factory).get(WordsListViewModel::class.java)
+
+        viewModel.getWordsPagedList().observe(viewLifecycleOwner, Observer {pagedList ->
+            if (pagedList != null){
+                adapter.submitList(pagedList)
+            }
+            //TODO: Show empty recyclerview text/image in the else condition
+        })
     }
 
 
@@ -121,15 +200,15 @@ class ListFragment : Fragment(), (Word) -> Unit {
          * Click listeners for the items in the bottom sheet
          */
         lin_sort_by_recent_words.setOnClickListener {
-
+            changeSortByPreference(resources.getInteger(R.integer.list_sort_pref_recent))
         }
 
         lin_sort_by_alpha_words.setOnClickListener {
-
+            changeSortByPreference(resources.getInteger(R.integer.list_sort_pref_alpha))
         }
 
         lin_gotosettings.setOnClickListener {
-
+            //TODO: Implement go to settings action
         }
     }
 
@@ -224,14 +303,16 @@ class ListFragment : Fragment(), (Word) -> Unit {
     private fun changeSharedPrefsForLayout() {
         val prefLayoutManager = activity?.getSharedPrefsFor(R.string.layout_pref_key)
         val defValue = resources.getInteger(R.integer.layout_pref_linear)
+
+        //current value of pref
         val prefLayout = prefLayoutManager!!.getInt(getString(R.string.layout_pref_key), defValue)
 
         if (prefLayout == resources.getInteger(R.integer.layout_pref_grid)) {
                 activity?.changeSharedPrefTo(prefLayoutManager, R.string.layout_pref_key,
-                resources.getInteger(R.integer.layout_pref_linear), 1)
+                resources.getInteger(R.integer.layout_pref_linear), resources.getInteger(R.integer.pref_is_of_int_type))
         }else{
             activity?.changeSharedPrefTo(prefLayoutManager, R.string.layout_pref_key,
-                resources.getInteger(R.integer.layout_pref_grid), 1)
+                resources.getInteger(R.integer.layout_pref_grid), resources.getInteger(R.integer.pref_is_of_int_type))
         }
     }
 

@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import save.newwords.vocab.remember.repository.WordRepository
 
 @Suppress("UNCHECKED_CAST")
-class WordsListViewModelFactory(private val repository: WordRepository) : ViewModelProvider.Factory{
+class WordsListViewModelFactory(private val repository: WordRepository, private val sortBy: Int) : ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WordsListViewModel::class.java)){
-            return WordsListViewModel(repository) as T
+            return WordsListViewModel(repository, sortBy) as T
         }
         throw IllegalArgumentException("List VM Factory: Unknown ViewModel class")
     }

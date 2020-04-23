@@ -94,11 +94,11 @@ fun Activity.getSharedPrefsFor(key: Int) : SharedPreferences{
  * ext function to change shared prefs
  */
 fun Activity.changeSharedPrefTo(prefLayoutManager: SharedPreferences, key: Int, whatToPut: Any, type: Int ){
-    //1 means shared pref is of int type, so perform int operation
-    if (type == 1){
+    //0 means shared pref is of int type, so perform int operation
+    if (type == 0){
         with(prefLayoutManager.edit()){
             putInt(getString(key), whatToPut as Int)
-            apply()
+            commit()
         }
     }
 }
