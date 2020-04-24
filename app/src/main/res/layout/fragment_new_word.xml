@@ -89,7 +89,7 @@
             android:orientation="vertical"
             android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/high_margin"
-            android:padding="@dimen/standard_padding"
+            android:padding="@dimen/high_padding"
             android:background="@drawable/transparent_black_outline_back"
             android:layout_marginStart="@dimen/small_margin"
             android:layout_marginEnd="@dimen/small_margin">
@@ -103,8 +103,8 @@
 
                 <ImageButton
                     android:id="@+id/imgbtn_record"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
                     android:src="@drawable/ic_mic_black_24dp"
                     android:background="@drawable/circle_back_white"
                     android:layout_marginEnd="@dimen/high_margin"
@@ -120,8 +120,9 @@
                     android:padding="@dimen/standard_padding"
                     android:inputType="textMultiLine"
                     android:text="@string/label_tap_to_record"
+                    android:textSize="@dimen/sub_standard_text_size"
                     android:fontFamily="@font/font_raleway"
-                    android:layout_marginEnd="@dimen/high_margin"
+                    android:layout_marginEnd="@dimen/standard_margin"
                     android:layout_gravity="center_vertical"
                     />
 

@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_new_word.*
 import save.newwords.vocab.remember.R
 import save.newwords.vocab.remember.common.AUDIO_PATH
 import save.newwords.vocab.remember.common.makeToast
+import save.newwords.vocab.remember.common.showSnackbar
 import save.newwords.vocab.remember.core.newword.NewWordViewModel
 import save.newwords.vocab.remember.core.newword.NewWordViewModelFactory
 import save.newwords.vocab.remember.db.Word
@@ -90,6 +91,15 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
             }
         })
 
+        //observe if audio recording has exceeded the time limit
+        viewModel.isTimeExceeded.observe(viewLifecycleOwner, Observer {
+            if (it){
+                viewModel.stopRecording()
+                //this is extra to show the user that recording cannot exceed 5 seconds
+                showTimeExceededSnackbar()
+            }
+        })
+
         //to delete the recorded audio
         imgbtn_delete_rec.setOnClickListener {
             txt_tap_to_record.text = getString(R.string.label_tap_to_record)
@@ -130,6 +140,10 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
             showWordDiscardedMessage()
         }
 
+    }
+
+    private fun showTimeExceededSnackbar() {
+        showSnackbar(getString(R.string.snack_max_audio_length))
     }
 
     private fun showWordDiscardedMessage() {

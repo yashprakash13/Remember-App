@@ -26,6 +26,7 @@
     <!--shared pref keys    -->
     <string name="layout_pref_key">save.newwords.vocab.remember.LAYOUT_PREF_KEY</string>
     <string name="sort_by_pref_key">save.newwords.vocab.remember.SORT_BY_PREF_KEY</string>
+    <string name="snack_max_audio_length">Recording reached the maximum of 5 seconds.</string>
 
 
 </resources>

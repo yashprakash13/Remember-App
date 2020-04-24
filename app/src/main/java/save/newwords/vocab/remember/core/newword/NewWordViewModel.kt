@@ -2,6 +2,7 @@ package save.newwords.vocab.remember.core.newword
 
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +16,6 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
 
     /**
      * for capturing audio saving functionalities
-     *
      * */
     //if user is still holding the mic button or not
     private val _isRecording = MutableLiveData<Boolean>()
@@ -32,6 +32,13 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
     //for media recording and playing
     private var mediaRecorder: MediaRecorder? = null
     private var player: MediaPlayer? = null
+
+    //to track if recording time has exceeded 5 seconds
+    private val  _isTimeExceeded = MutableLiveData<Boolean>()
+    val isTimeExceeded : LiveData<Boolean> get() = _isTimeExceeded
+
+    //timer instance
+    private lateinit var timer: CountDownTimer
 
     private var _filename = String()
 
@@ -58,6 +65,19 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
             start()
         }
 
+        //start the timer for 5 seconds
+        timer = object : CountDownTimer(5000, 1000){
+            override fun onFinish() {
+                _isTimeExceeded.value = true
+            }
+
+            override fun onTick(p0: Long) {
+                //nothing to do here
+            }
+        }
+        timer.start()
+
+
         //helps change text in the view through observer
         _isRecording.value = true
         _isRecorded.value = false
@@ -79,6 +99,12 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
         //observer text and icon changes through these
         _isRecording.value = false
         _isRecorded.value = true
+
+        //reset the timer boolean
+        _isTimeExceeded.value = false
+
+        //stop the timer
+        timer.cancel()
     }
 
 
