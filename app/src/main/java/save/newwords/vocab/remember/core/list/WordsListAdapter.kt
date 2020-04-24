@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.each_word_item_view.view.*
 import kotlinx.android.synthetic.main.each_word_item_view_grid.view.*
 import save.newwords.vocab.remember.R
@@ -16,7 +17,7 @@ import save.newwords.vocab.remember.common.dontShow
 import save.newwords.vocab.remember.common.toggleVisibility
 import save.newwords.vocab.remember.db.Word
 
-class WordsListAdapter(private val context: Context, private val layoutManager: GridLayoutManager, private val clickListener: (Word) -> Unit) :
+class WordsListAdapter(private val context: Context, private val layoutManager: StaggeredGridLayoutManager, private val clickListener: (Word) -> Unit) :
     PagedListAdapter<Word, RecyclerView.ViewHolder>(WordItemDiffCallback()) {
 
     enum class ViewType {

@@ -16,6 +16,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main_bottom_sheet.*
@@ -44,7 +45,8 @@ class ListFragment : Fragment(), (Word) -> Unit {
     private lateinit var adapter: WordsListAdapter
 
     //layout mananger instance
-    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var layoutManager: StaggeredGridLayoutManager
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -208,8 +210,8 @@ class ListFragment : Fragment(), (Word) -> Unit {
         }
 
         lin_gotosettings.setOnClickListener {
-            navigateToOptionsFrag()
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            navigateToOptionsFrag()
         }
     }
 
@@ -220,10 +222,13 @@ class ListFragment : Fragment(), (Word) -> Unit {
 
     /**
      * Change layout spancount of recyclerview based on option selected from sharedprefs
+     * and the number of columns got from screen width using
+     * @see getNumColumns function
      */
     private fun changeLayoutForRecyclerview() {
         if (layoutManager.spanCount == 1){
-            layoutManager.spanCount = 2
+            val numCols = requireContext().getNumColumns()
+            layoutManager.spanCount = numCols
         } else{
             layoutManager.spanCount = 1
         }
@@ -243,10 +248,10 @@ class ListFragment : Fragment(), (Word) -> Unit {
         val prefLayout = prefLayoutManager!!.getInt(getString(R.string.layout_pref_key), defValue)
 
         layoutManager = if (prefLayout == resources.getInteger(R.integer.layout_pref_linear)) {
-            GridLayoutManager(requireActivity(), 1)
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         }else{
             val numCols = requireContext().getNumColumns()
-            GridLayoutManager(requireActivity(), numCols)
+            StaggeredGridLayoutManager(numCols, StaggeredGridLayoutManager.VERTICAL)
         }
         recy_words_list.layoutManager = layoutManager
     }
