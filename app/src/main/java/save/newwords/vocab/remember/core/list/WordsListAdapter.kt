@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.each_word_item_view.view.*
 import kotlinx.android.synthetic.main.each_word_item_view_grid.view.*
 import save.newwords.vocab.remember.R
+import save.newwords.vocab.remember.common.WORD_CLICKED
+import save.newwords.vocab.remember.common.WORD_PRONUNCIATION_BTN_CLICKED
 import save.newwords.vocab.remember.common.dontShow
 import save.newwords.vocab.remember.common.toggleVisibility
 import save.newwords.vocab.remember.db.Word
 
-class WordsListAdapter(private val context: Context, private val layoutManager: StaggeredGridLayoutManager, private val clickListener: (Word) -> Unit) :
+class WordsListAdapter(private val context: Context,
+                       private val layoutManager: StaggeredGridLayoutManager,
+                       private val clickListener: (Word, Int) -> Unit) :
     PagedListAdapter<Word, RecyclerView.ViewHolder>(WordItemDiffCallback()) {
 
     enum class ViewType {
@@ -62,7 +66,7 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
         private var imgBtnShowMean: ImageButton = view.imgbtn_show_meaning
         private var imgBtnHearPronunciation: ImageButton = view.imgbtn_hear_pronun
 
-        fun bind (word: Word, clickListener: (Word) -> Unit){
+        fun bind (word: Word, clickListener: (Word, Int) -> Unit){
             txtName.text = word.name
 
             //if meaning is null, don't show the show-meaning button
@@ -79,13 +83,21 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
                 imgBtnHearPronunciation.dontShow()
             }
 
+            //when a word is clicked (invoke edit function)
             itemView.setOnClickListener{
-                clickListener(word)
+                clickListener(word, WORD_CLICKED)
             }
+
             //to show and hide the meaning in list
             imgBtnShowMean.setOnClickListener {
                 txtMean.toggleVisibility()
             }
+
+            //when the hear pronunciation button on the word is clicked(invoke media player)
+            imgBtnHearPronunciation.setOnClickListener {
+                clickListener(word, WORD_PRONUNCIATION_BTN_CLICKED)
+            }
+
         }
     }
 
@@ -99,7 +111,7 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
         private var txtMean: TextView = view.txt_word_mean_grid
         private var imgBtnHearPronunciation : ImageButton = view.imgbtn_hear_pronun_grid
 
-        fun bind (word: Word, clickListener: (Word) -> Unit){
+        fun bind (word: Word, clickListener: (Word, Int) -> Unit){
             txtName.text = word.name
 
             //if meaning is null, don't show the show-meaning button
@@ -114,8 +126,14 @@ class WordsListAdapter(private val context: Context, private val layoutManager: 
                 imgBtnHearPronunciation.dontShow()
             }
 
+            //click listener invoke function for word clicked
             itemView.setOnClickListener{
-                clickListener(word)
+                clickListener(word, WORD_CLICKED)
+            }
+
+            //when the hear pronunciation button on the word is clicked(invoke media player)
+            imgBtnHearPronunciation.setOnClickListener {
+                clickListener(word, WORD_PRONUNCIATION_BTN_CLICKED)
             }
         }
     }

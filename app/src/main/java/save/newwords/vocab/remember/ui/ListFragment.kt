@@ -20,8 +20,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main_bottom_sheet.*
+import kotlinx.android.synthetic.main.each_word_item_view.*
 import kotlinx.android.synthetic.main.each_word_item_view.view.*
+import kotlinx.android.synthetic.main.each_word_item_view.view.imgbtn_hear_pronun
+import kotlinx.android.synthetic.main.each_word_item_view_grid.*
 import kotlinx.android.synthetic.main.each_word_item_view_grid.view.*
+import kotlinx.android.synthetic.main.each_word_item_view_grid.view.imgbtn_hear_pronun_grid
 import kotlinx.android.synthetic.main.fragment_list.*
 
 import save.newwords.vocab.remember.R
@@ -32,11 +36,12 @@ import save.newwords.vocab.remember.core.list.WordsListViewModelFactory
 import save.newwords.vocab.remember.db.Word
 import save.newwords.vocab.remember.db.WordDatabase
 import save.newwords.vocab.remember.repository.WordRepository
+import java.io.File
 
 /**
  * A simple [Fragment] subclass.
  */
-class ListFragment : Fragment(), (Word) -> Unit {
+class ListFragment : Fragment(), (Word, Int) -> Unit {
 
     //view model instance for list fragment
     private lateinit var viewModel: WordsListViewModel
@@ -91,6 +96,27 @@ class ListFragment : Fragment(), (Word) -> Unit {
 
         //for the bottom-app-bar bottomsheet through navigation icon
         setUpBottomSheetNavigation()
+    }
+
+
+    /**
+     * the clicklistener for word clicked, or the hear pronunciation btn clicked
+     * @param wordClicked: The word clicked on the list
+     * @param clickType: the type of click: can be either of two:
+     * @see WORD_CLICKED and
+     * @see WORD_PRONUNCIATION_BTN_CLICKED
+     */
+    override fun invoke(wordClicked: Word, clickType: Int) {
+        when(clickType){
+            WORD_CLICKED -> {
+                //TODO: Perform word clicked function
+            }
+            WORD_PRONUNCIATION_BTN_CLICKED -> {
+                val root = File(requireActivity().getExternalFilesDir("/"), AUDIO_PATH)
+                viewModel.hearPronunciation(root, wordClicked)
+                makeToast("Playing pronunciation...")
+            }
+        }
     }
 
     /**
@@ -159,8 +185,6 @@ class ListFragment : Fragment(), (Word) -> Unit {
             }
             //TODO: Show empty recyclerview text/image in the else condition
         })
-
-
     }
     /**
      * helper function to
@@ -262,15 +286,6 @@ class ListFragment : Fragment(), (Word) -> Unit {
      */
     private fun navigateToNewWordFrag() {
         Navigation.findNavController(this.requireView()).navigate(R.id.action_listFragment_to_newWordFragment)
-    }
-
-
-    /**
-     * @param wordClicked: The word clicked on the list
-     */
-    override fun invoke(wordClicked: Word) {
-        Log.e("Clicked word:", wordClicked.name)
-        //TODO: Impelement click on word actions
     }
 
 

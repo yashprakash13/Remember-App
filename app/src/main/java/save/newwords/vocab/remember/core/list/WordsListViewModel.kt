@@ -1,5 +1,7 @@
 package save.newwords.vocab.remember.core.list
 
+import android.media.MediaPlayer
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +11,8 @@ import androidx.paging.PagedList
 import kotlinx.coroutines.*
 import save.newwords.vocab.remember.db.Word
 import save.newwords.vocab.remember.repository.WordRepository
+import java.io.File
+import java.io.IOException
 
 class WordsListViewModel(private val repository: WordRepository, private val sortBy: Int): ViewModel() {
 
@@ -21,6 +25,9 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
 
     //mutable so that word can be assigned when the runBlocking coroutine completes
     private val storeDeletedWord = MutableLiveData<Word>()
+
+    //to play audio from local storage
+    private var player: MediaPlayer? = null
 
 
 
@@ -72,6 +79,29 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
             storeDeletedWord.value?.let { repository.saveWordToDb(it) }
         }
     }
+
+    /**
+     * to hear pronunciation from clicked word in the list
+     */
+    fun hearPronunciation(root: File, word: Word) {
+        val audioFilePath = File(root, "${word.name}.3gp").absolutePath
+        player = MediaPlayer().apply {
+            try {
+                setDataSource(audioFilePath)
+                prepare()
+                start()
+            } catch (e: IOException) {
+                Log.e("AUDIO PLAYING ERROR: ", "prepare() failed")
+            }
+        }
+
+        player!!.setOnCompletionListener {
+            //do something
+        }
+    }
+
+
+
 
     /**
      * To cancel the coroutine jobs when view model is deleted upon activity close
