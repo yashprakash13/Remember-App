@@ -32,6 +32,15 @@
             app:popEnterAnim="@anim/fade_in"
             app:enterAnim="@anim/slide_in"
             app:popExitAnim="@anim/slide_out"/>
+        <action
+            android:id="@+id/action_listFragment_to_editWordFragment"
+            app:destination="@id/editWordFragment"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"/>
+
+
     </fragment>
     <fragment
         android:id="@+id/newWordFragment"
@@ -49,4 +58,14 @@
         android:name="save.newwords.vocab.remember.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/editWordFragment"
+        android:name="save.newwords.vocab.remember.ui.EditWordFragment"
+        android:label="fragment_edit_word"
+        tools:layout="@layout/fragment_edit_word" >
+        <argument
+            android:name="wordNameClicked"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

@@ -109,14 +109,19 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
     override fun invoke(wordClicked: Word, clickType: Int) {
         when(clickType){
             WORD_CLICKED -> {
-                //TODO: Perform word clicked function
+                navigateToEditWordFragment(wordClicked.name)
             }
             WORD_PRONUNCIATION_BTN_CLICKED -> {
                 val root = File(requireActivity().getExternalFilesDir("/"), AUDIO_PATH)
                 viewModel.hearPronunciation(root, wordClicked)
-                makeToast("Playing pronunciation...")
+                showSnackbar(getString(R.string.toast_playing_pro))
             }
         }
+    }
+
+    private fun navigateToEditWordFragment(name: String) {
+        val action = ListFragmentDirections.actionListFragmentToEditWordFragment(name)
+        Navigation.findNavController(requireView()).navigate(action)
     }
 
     /**
