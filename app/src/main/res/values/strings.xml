@@ -38,6 +38,10 @@
     <string name="def_edit_word_audio_btn_label">Add a Pronunciation</string>
     <string name="delete_pronunciation">Delete Pronunciation</string>
     <string name="tap_to_listen_pro_edit_word">Tap to Listen Pronunciation.</string>
+    <string name="label_error_word_without_name">Cannot save a word without its name.</string>
+    <string name="label_cancelled">Cancelled.</string>
+    <string name="label_pronunication_deleted">Pronunciation deleted.</string>
+    <string name="word_saved">Word saved.</string>
 
 
 </resources>

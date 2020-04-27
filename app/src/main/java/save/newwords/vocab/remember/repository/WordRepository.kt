@@ -37,6 +37,12 @@ class WordRepository(private val database: WordDatabase) {
         }
     }
 
+    fun updateWordInDb(originalName: String, word: Word){
+        CoroutineScope(Dispatchers.IO).launch {
+            database.wordDao().updateWord(originalName, word.name, word.meaning, word.audioPath)
+        }
+    }
+
     //TODO implement other methods
 
 }

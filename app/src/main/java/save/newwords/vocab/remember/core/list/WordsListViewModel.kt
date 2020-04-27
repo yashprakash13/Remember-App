@@ -82,6 +82,7 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
 
     /**
      * to hear pronunciation from clicked word in the list
+     * @param root: the internal storage path
      */
     fun hearPronunciation(root: File, word: Word) {
         val audioFilePath = File(root, "${word.name}.3gp").absolutePath
@@ -110,7 +111,5 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
         super.onCleared()
         viewModelJob.cancel()
     }
-
-    //TODO Implement other methods
 
 }

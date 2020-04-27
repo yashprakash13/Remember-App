@@ -123,8 +123,8 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
                 //check if there is a recorded pronunciation file available
                 if (viewModel.isRecorded.value!!){
                     //saves permanent file to disk and deletes the cache file
-                    viewModel.getandSavePermanentFile(root, til_wordname.editText!!.text.toString())
-                    word.audioPath = til_wordname.editText!!.text.toString() + ".3gp"
+                    viewModel.getandSavePermanentFile(root, til_wordname.editText!!.text.toString().trim())
+                    word.audioPath = til_wordname.editText!!.text.toString().trim() + ".3gp"
                 }
                 viewModel.saveWord(word)
                 showWordSavedMessage()

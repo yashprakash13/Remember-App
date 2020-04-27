@@ -119,6 +119,26 @@
         android:visibility="gone"
         />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_add_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_tap_to_record"
+        android:layout_marginStart="@dimen/big_standard_margin"
+        android:layout_marginEnd="@dimen/big_standard_margin"
+        android:layout_marginTop="@dimen/higher_margin"
+        android:layout_marginBottom="@dimen/higher_margin"
+        android:padding="@dimen/high_padding"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit_delete_audio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        app:icon="@drawable/ic_mic_black_24dp"
+        android:visibility="gone"/>
+
+
+
     <Button
         android:id="@+id/btn_edit_save"
         android:layout_width="wrap_content"
@@ -128,7 +148,7 @@
         android:layout_marginEnd="@dimen/high_margin"
         android:layout_marginBottom="@dimen/high_margin"
         android:padding="@dimen/standard_padding"
-        app:layout_constraintTop_toBottomOf="@id/btn_edit_delete_audio"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit_add_audio"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
@@ -142,7 +162,7 @@
         android:layout_marginBottom="@dimen/high_margin"
         android:padding="@dimen/standard_padding"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        app:layout_constraintTop_toBottomOf="@id/btn_edit_delete_audio"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit_add_audio"
         app:layout_constraintEnd_toStartOf="@id/btn_edit_save"
         />
 
