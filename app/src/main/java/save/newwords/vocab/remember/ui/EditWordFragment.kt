@@ -3,6 +3,7 @@ package save.newwords.vocab.remember.ui
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -27,7 +28,7 @@ import java.io.File
 /**
  * A simple [Fragment] subclass.
  */
-class EditWordFragment : Fragment() {
+class EditWordFragment : Fragment(), View.OnTouchListener {
 
     //viewmodel instance
     private lateinit var viewModel: EditWordViewModel
@@ -37,6 +38,9 @@ class EditWordFragment : Fragment() {
 
     //local storage root
     private lateinit var root: File
+
+    //temp audio file name while recording
+    private lateinit var tempAudioFileName: String
 
     /**
      * for inflating xml view
@@ -68,6 +72,15 @@ class EditWordFragment : Fragment() {
         //get the word from db from its name
         viewModel.getWordFromName(wordNameClicked)
 
+        //name through which the audio is saved temporarily in cache
+        tempAudioFileName = "${requireActivity().externalCacheDir!!.absolutePath}/audiorecordtemp.3gp"
+
+        /**
+         * ontouch listener for audio add button
+         * for tap and hold to record functionality
+         */
+        btn_edit_add_audio.setOnTouchListener(this)
+
         //set up the UI when the word is fetched from the db
         viewModel.clickedWordMutable.observe(viewLifecycleOwner, Observer {
             if (it != null){
@@ -98,7 +111,12 @@ class EditWordFragment : Fragment() {
             if (viewModel.clickedWordMutable.value!!.audioPath != null){
                 viewModel.playAudio(root)
                 showAudioPlayingMessage()
-            }else{
+            } else if (viewModel.isAudioAvailableInCache.value!!){
+                //play audio if audio has just been recorded and is in cache, but originally
+                //the word didn't have one
+                viewModel.playAudioFromCache()
+                showAudioPlayingMessage()
+            } else{
                 //if audio path is null, meaning new audio must be recorded
                 viewModel.initRecordingMembers()
                 prepareUIForRecording()
@@ -119,8 +137,19 @@ class EditWordFragment : Fragment() {
                 if (!TextUtils.isEmpty(til_edit_word_meaning.editText!!.text.toString().trim())){
                     viewModel.clickedWordMutable.value!!.meaning = til_edit_word_meaning.editText!!.text.toString().trim()
                 }
-                //TODO: implement audio save actions
-                //viewModel.updateWord(wordNameClicked)
+                //check if audio is present in cache, if yes, then save the audio permanently
+                if (viewModel.isAudioAvailableInCache.value!!){
+                    //change the audio path for the word
+                    viewModel.clickedWordMutable.value!!.audioPath = til_edit_word_name.editText!!.text.toString().trim() + ".3gp"
+                    viewModel.saveAudioToStorage(root, til_edit_word_name.editText!!.text.toString().trim())
+                }
+                //the else condition in case the audio is to be deleted
+                // is already checked in the view model
+                //through saveAndUpdate() method
+
+                //save edited word into db
+                viewModel.saveAndUpdate(wordNameClicked)
+
                 showSavedMessage()
                 navigateToListFragment()
 
@@ -132,15 +161,50 @@ class EditWordFragment : Fragment() {
 
         //------------------------------audio recording functionalities-----------------------------
 
+        viewModel.isRecording.observe(viewLifecycleOwner, Observer {
+            if (it){
+                //when touch and hold is in effect, meaning, audio is being recorded
+                changeAddAudioButtonToShowRecording()
+            }else{
+                changeAddAudioButtonToShowStoppedRecording()
+            }
+        })
 
+        viewModel.isRecorded.observe(viewLifecycleOwner, Observer {
+            if (it){
+                //when add audio button has been released, meaning, audio has been recorded
+                //set the audio buttons to new states - hide add audio btn and show the tap
+                //to listen button with the play icon
+                changeAudioButtonAppearances(false)
+                //next, hide the add audio button
+                btn_edit_add_audio.dontShow()
+            }
+        })
+
+        //observe if audio recording has exceeded the time limit
+        viewModel.isTimeExceeded.observe(viewLifecycleOwner, Observer {
+            if (it){
+                viewModel.stopRecording()
+                //this is extra to show the user that recording cannot exceed 5 seconds
+                showTimeExceededMessage()
+            }
+        })
 
 
         //------------------------------------------------------------------------------------------
 
+    }
 
 
+    private fun showTimeExceededMessage() {
+        showSnackbar(getString(R.string.snack_max_audio_length))
+    }
 
-
+    private fun changeAddAudioButtonToShowStoppedRecording() {
+        btn_edit_add_audio.text = getString(R.string.label_tap_to_record)
+    }
+    private fun changeAddAudioButtonToShowRecording() {
+        btn_edit_add_audio.text = getString(R.string.label_started_recording)
     }
 
     private fun showCancelledMessage() {
@@ -189,6 +253,7 @@ class EditWordFragment : Fragment() {
             //change btn text and icon if there's an audio associated with the word
             btn_edit_audio.text = getString(R.string.tap_to_listen_pro_edit_word)
             btn_edit_audio.setIconResource(R.drawable.ic_play_arrow_black_24dp)
+            btn_edit_audio.show()
 
             //show delete pronunciation btn
             btn_edit_delete_audio.show()
@@ -215,6 +280,19 @@ class EditWordFragment : Fragment() {
         }else {
             viewModel.setIsAudioPresentProperty(false)
         }
+    }
+
+    override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+        if (p1!!.action == MotionEvent.ACTION_DOWN){
+            //press and hold to record audio
+            viewModel.startRecording(tempAudioFileName)
+            return true
+        }
+        else if (p1.action == MotionEvent.ACTION_UP){
+            viewModel.stopRecording()
+            return true
+        }
+        return false
     }
 
 
