@@ -36,9 +36,6 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
     //root file
     private lateinit var root: File
 
-    //word name received as argument from ListFrag upon item click
-    private var wordNameClicked : String? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
