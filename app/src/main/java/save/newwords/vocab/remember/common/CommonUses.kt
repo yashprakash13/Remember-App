@@ -3,16 +3,17 @@ package save.newwords.vocab.remember.common
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 
 
 /**
@@ -109,6 +110,18 @@ fun Activity.changeSharedPrefTo(prefLayoutManager: SharedPreferences, key: Int, 
     }
 }
 
+internal fun TextInputLayout.isValid() : Boolean{
+    val string = editText!!.text.toString().trim()
+
+    if (!TextUtils.isEmpty(editText!!.text) && string != ""){
+        return true
+    }
+    return false
+}
+
+internal fun TextInputLayout.getString() : String{
+    return editText!!.text.toString().trim()
+}
 
 
 

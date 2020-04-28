@@ -14,9 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_edit_word.*
 import save.newwords.vocab.remember.R
-import save.newwords.vocab.remember.common.AUDIO_PATH
-import save.newwords.vocab.remember.common.dontShow
-import save.newwords.vocab.remember.common.show
+import save.newwords.vocab.remember.common.*
 import save.newwords.vocab.remember.common.showSnackbar
 import save.newwords.vocab.remember.core.editword.EditWordViewModel
 import save.newwords.vocab.remember.core.editword.EditWordViewModelFactory
@@ -76,7 +74,7 @@ class EditWordFragment : Fragment(), View.OnTouchListener {
         tempAudioFileName = "${requireActivity().externalCacheDir!!.absolutePath}/audiorecordtemp.3gp"
 
         /**
-         * ontouch listener for audio add button
+         * onTouch listener for audio add button
          * for tap and hold to record functionality
          */
         btn_edit_add_audio.setOnTouchListener(this)
@@ -131,17 +129,20 @@ class EditWordFragment : Fragment(), View.OnTouchListener {
         //if save button is clicked, save the contents of the edited word
         btn_edit_save.setOnClickListener {
             //if name field is not empty
-            if (!TextUtils.isEmpty(til_edit_word_name.editText!!.text.toString().trim())){
-                viewModel.clickedWordMutable.value!!.name = til_edit_word_name.editText!!.text.toString().trim()
-                //if meaning field is not empty
-                if (!TextUtils.isEmpty(til_edit_word_meaning.editText!!.text.toString().trim())){
-                    viewModel.clickedWordMutable.value!!.meaning = til_edit_word_meaning.editText!!.text.toString().trim()
+            if (til_edit_word_name.isValid()){
+                viewModel.clickedWordMutable.value!!.name = til_edit_word_name.getString()
+
+                //if meaning field is valid
+                if (til_edit_word_meaning.isValid()){
+                    viewModel.clickedWordMutable.value!!.meaning = til_edit_word_meaning.getString()
+                }else{
+                    viewModel.clickedWordMutable.value!!.meaning = null
                 }
                 //check if audio is present in cache, if yes, then save the audio permanently
                 if (viewModel.isAudioAvailableInCache.value!!){
                     //change the audio path for the word
-                    viewModel.clickedWordMutable.value!!.audioPath = til_edit_word_name.editText!!.text.toString().trim() + ".3gp"
-                    viewModel.saveAudioToStorage(root, til_edit_word_name.editText!!.text.toString().trim())
+                    viewModel.clickedWordMutable.value!!.audioPath = til_edit_word_name.getString() + ".3gp"
+                    viewModel.saveAudioToStorage(root, til_edit_word_name.getString())
                 }
                 //the else condition in case the audio is to be deleted
                 // is already checked in the view model
@@ -221,7 +222,7 @@ class EditWordFragment : Fragment(), View.OnTouchListener {
 
     private fun showSnackBarForUndoDeletion() {
         val snackbar = Snackbar.make(requireView(), getString(R.string.label_pronunication_deleted), Snackbar.LENGTH_LONG)
-        snackbar.setAction("Undo") {
+        snackbar.setAction(getString(R.string.label_undo)) {
             viewModel.undoDeleteAudio()
         }
         snackbar.show()

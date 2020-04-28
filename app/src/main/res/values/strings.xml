@@ -42,6 +42,7 @@
     <string name="label_cancelled">Cancelled.</string>
     <string name="label_pronunication_deleted">Pronunciation deleted.</string>
     <string name="word_saved">Word saved.</string>
+    <string name="label_undo">Undo</string>
 
 
 </resources>

@@ -14,7 +14,8 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_new_word.*
 
 import save.newwords.vocab.remember.R
-import save.newwords.vocab.remember.common.AUDIO_PATH
+import save.newwords.vocab.remember.common.*
+import save.newwords.vocab.remember.common.isValid
 import save.newwords.vocab.remember.common.makeToast
 import save.newwords.vocab.remember.common.showSnackbar
 import save.newwords.vocab.remember.core.newword.NewWordViewModel
@@ -115,16 +116,16 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
 
         //if save button is clicked
         btn_save.setOnClickListener {
-            if (!TextUtils.isEmpty(til_wordname.editText!!.text)){
-                val word = Word(til_wordname.editText!!.text.toString().trim())
-                if (!TextUtils.isEmpty((til_wordMeaning.editText!!.text))){
-                    word.meaning = til_wordMeaning.editText!!.text.toString().trim()
+            if (til_wordname.isValid()){
+                val word = Word(til_wordname.getString())
+                if (til_wordMeaning.isValid()){
+                    word.meaning = til_wordMeaning.getString()
                 }
                 //check if there is a recorded pronunciation file available
                 if (viewModel.isRecorded.value!!){
                     //saves permanent file to disk and deletes the cache file
-                    viewModel.getandSavePermanentFile(root, til_wordname.editText!!.text.toString().trim())
-                    word.audioPath = til_wordname.editText!!.text.toString().trim() + ".3gp"
+                    viewModel.getandSavePermanentFile(root, til_wordname.getString())
+                    word.audioPath = til_wordname.getString() + ".3gp"
                 }
                 viewModel.saveWord(word)
                 showWordSavedMessage()
