@@ -1,8 +1,6 @@
 package save.newwords.vocab.remember.ui
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -33,10 +31,13 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
     //viewmodel instance
     private lateinit var viewModel: NewWordViewModel
 
-    //root file
+    //root file in local storage
     private lateinit var root: File
 
 
+    /**
+     * inflate xml file
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +45,9 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
         return inflater.inflate(R.layout.fragment_new_word, container, false)
     }
 
+    /**
+     * for all other tasks
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,26 +61,31 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
         //root file
         root = File(requireActivity().getExternalFilesDir("/"), AUDIO_PATH)
 
-        /*
-        Implementing tap and hold to record for mic button
-         */
-        imgbtn_record.setOnTouchListener(this)
+        //Implementing tap and hold to record for audio
+        btn_new_add_audio.setOnTouchListener(this)
+
+        //when add audio btn is clicked, show the tap to record button and hide this button
+        btn_new_audio.setOnClickListener {
+            //if audio has been recorded, play it back
+            if (viewModel.isRecorded.value!!){
+                viewModel.playIfRecorded()
+            }else {
+                //otherwise, show the add audio button
+                changeUIToAddAudio()
+            }
+        }
 
         //observe if recording
         viewModel.isRecording.observe(viewLifecycleOwner, Observer {
             if (it){
                 showRecordingMessage()
-            }else{
-                showRecordingStoppedMessage()
-                changeToPlayIcon()
             }
         })
 
         //know if audio was recorded
         viewModel.isRecorded.observe(viewLifecycleOwner, Observer {
             if (it) {
-                changeToMicIcon()
-                showDeleteIcon()
+                changeAudioButtonAppearances(true)
             }
         })
 
@@ -84,8 +93,6 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
         viewModel.isPlaying.observe(viewLifecycleOwner, Observer {
             if (it){
                 showPlayingMessage()
-            }else{
-                showRecordingStoppedMessage()
             }
         })
 
@@ -93,25 +100,20 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
         viewModel.isTimeExceeded.observe(viewLifecycleOwner, Observer {
             if (it){
                 viewModel.stopRecording()
-                //this is extra to show the user that recording cannot exceed 5 seconds
+                //to show the user that recording cannot exceed 5 seconds
                 showTimeExceededSnackbar()
             }
         })
 
         //to delete the recorded audio
-        imgbtn_delete_rec.setOnClickListener {
-            txt_tap_to_record.text = getString(R.string.label_tap_to_record)
-            imgbtn_delete_rec.visibility = View.GONE
-            changeToMicIcon()
+        btn_add_delete_audio.setOnClickListener {
+            changeAudioButtonAppearances(false)
+
+            //delete audio saved in cache
             viewModel.deleteCacheAudioRecording()
         }
 
-        //to play the recorded audio back
-        txt_tap_to_record.setOnClickListener {
-            viewModel.playIfRecorded()
-        }
-
-        //if save button is clicked
+        //if save button is clicked, save the word to db
         btn_save.setOnClickListener {
             if (til_wordname.isValid()){
                 val word = Word(til_wordname.getString())
@@ -121,7 +123,7 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
                 //check if there is a recorded pronunciation file available
                 if (viewModel.isRecorded.value!!){
                     //saves permanent file to disk and deletes the cache file
-                    viewModel.getandSavePermanentFile(root, til_wordname.getString())
+                    viewModel.getAndSavePermanentFile(root, til_wordname.getString())
                     word.audioPath = til_wordname.getString() + ".3gp"
                 }
                 viewModel.saveWord(word)
@@ -132,7 +134,7 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
             }
         }
 
-        //if delete button is clicked
+        //if delete/cancel button is clicked, discard the word
         btn_delete.setOnClickListener {
             navigateToListFrag()
             showWordDiscardedMessage()
@@ -140,45 +142,50 @@ class NewWordFragment : Fragment(), View.OnTouchListener {
 
     }
 
+    private fun changeUIToAddAudio() {
+        btn_new_audio.dontShow()
+        btn_new_add_audio.show()
+    }
+
     private fun showTimeExceededSnackbar() {
         showSnackbar(getString(R.string.snack_max_audio_length))
     }
 
     private fun showWordDiscardedMessage() {
-        makeToast(getString(R.string.toast_word_discarded))
+        showSnackbar(getString(R.string.toast_word_discarded))
     }
 
     private fun navigateToListFrag() {
-        Navigation.findNavController(this.requireView()).popBackStack()
+        Navigation.findNavController(requireView()).popBackStack()
     }
 
     private fun showWordSavedMessage() {
-        makeToast(getString(R.string.toast_word_saved))
-    }
-
-    private fun showDeleteIcon() {
-        imgbtn_delete_rec.visibility = View.VISIBLE
-    }
-
-    private fun changeToMicIcon() {
-        imgbtn_record.setImageDrawable(resources.getDrawable(R.drawable.ic_mic_black_24dp, null))
-    }
-
-    private fun changeToPlayIcon(){
-        imgbtn_record.setImageDrawable(resources.getDrawable(R.drawable.ic_play_arrow_black_24dp, null))
-
+        showSnackbar(getString(R.string.toast_word_saved))
     }
 
     private fun showPlayingMessage() {
-        txt_tap_to_record.text = getString(R.string.label_playing)
+        showSnackbar(getString(R.string.toast_playing_pro))
     }
 
-    private fun showRecordingStoppedMessage() {
-        txt_tap_to_record.text = getString(R.string.label_audio_recorded)
+    private fun changeAudioButtonAppearances(isAudioRecorded: Boolean) {
+        //when audio has been recorded, show the delete button, change text of audio button
+        //and hide the add audio button
+        if (isAudioRecorded){
+            btn_new_audio.text = getString(R.string.tap_to_listen_pro_edit_word)
+            btn_new_audio.show()
+            btn_new_add_audio.dontShow()
+            btn_add_delete_audio.show()
+        }else{
+            //if audio was deleted, hide the delete button, change text of add audio button to its
+            //default text and change text of audio button to its default too
+            btn_new_audio.text = getString(R.string.def_edit_word_audio_btn_label)
+            btn_add_delete_audio.dontShow()
+            btn_new_add_audio.text = getString(R.string.label_tap_to_record)
+        }
     }
 
     private fun showRecordingMessage() {
-        txt_tap_to_record.text = getString(R.string.label_started_recording)
+        btn_new_add_audio.text = getString(R.string.label_started_recording)
     }
 
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {

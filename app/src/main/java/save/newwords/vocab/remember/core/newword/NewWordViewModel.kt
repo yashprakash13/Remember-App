@@ -47,6 +47,10 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
     }
 
 
+    /**
+     * for recording audio and saving in temp file name called
+     * @param fileName
+     */
     fun startRecording(fileName: String) {
 
         _filename =  fileName
@@ -68,6 +72,8 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
         //start the timer for 5 seconds
         timer = object : CountDownTimer(5000, 1000){
             override fun onFinish() {
+                //observer to know that recording needs to be stopped as time has exceeded
+                //5 seconds
                 _isTimeExceeded.value = true
             }
 
@@ -88,6 +94,9 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
         }
     }
 
+    /**
+     * stop recording and save temp file in cache
+     */
     fun stopRecording() {
         //stop recording
         mediaRecorder?.apply {
@@ -108,7 +117,9 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
     }
 
 
-    //to delete the temp cache audio file
+    /**
+     * to delete the temp cache audio file
+     */
     fun deleteCacheAudioRecording(){
         val file = File(_filename)
         file.delete()
@@ -116,7 +127,9 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
         _isRecorded.value = false
     }
 
-    //to play the recorded audio file
+    /**
+     * to play the recorded audio file
+     */
     fun playIfRecorded() {
         player = MediaPlayer().apply {
             try {
@@ -135,10 +148,10 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
 
     }
 
-    /*
-    get and save the permanent audio file into local storage
+    /**
+     * get and save the permanent audio file into local storage
      */
-    fun getandSavePermanentFile(root: File, wordName: String) {
+    fun getAndSavePermanentFile(root: File, wordName: String) {
         //create Audio Files directory if not already there
         if (!root.isDirectory){
             if (!root.mkdirs()) Log.e("Folder not", " created")
@@ -153,7 +166,9 @@ class NewWordViewModel(private val repository: WordRepository): ViewModel() {
         file.delete()
     }
 
-    // save word into db
+    /**
+     *  save word into db
+      */
     fun saveWord(word: Word){
         repository.saveWordToDb(word)
     }
