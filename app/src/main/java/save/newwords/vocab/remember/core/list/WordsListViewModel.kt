@@ -29,6 +29,11 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
     //to play audio from local storage
     private var player: MediaPlayer? = null
 
+    //to track if the word will be deleted or not
+    //if undo is clicked, this will turn false
+    //otherwise it will remain true
+    private val isAudioToBeDeleted = MutableLiveData<Boolean> ()
+
 
 
     init {
@@ -60,6 +65,8 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
         uiScope.launch {
             repository.deleteWordFromDb(name)
         }
+        //the word needs to be deleted
+        isAudioToBeDeleted.value = true
     }
 
     /**
@@ -72,11 +79,24 @@ class WordsListViewModel(private val repository: WordRepository, private val sor
     }
 
     /**
-     * restore deleted word in case undo is clicked
+     * to restore deleted word in case undo is clicked
      */
     fun restoreDeletedWord() {
         uiScope.launch {
             storeDeletedWord.value?.let { repository.saveWordToDb(it) }
+        }
+        //the undo button on snackbar was clicked
+        isAudioToBeDeleted.value = false
+    }
+
+    /**
+     * to delete audio permanently from local storage
+     */
+    fun deleteAudioForWord (root: File){
+        //if there's an audio associated with the word and the undo button was not clicked
+        if (storeDeletedWord.value!!.audioPath != null && isAudioToBeDeleted.value!!) {
+            val fileToDelete = File(root, storeDeletedWord.value!!.audioPath!!)
+            fileToDelete.delete()
         }
     }
 

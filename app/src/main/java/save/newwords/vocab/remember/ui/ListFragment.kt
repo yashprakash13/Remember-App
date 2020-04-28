@@ -52,6 +52,9 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
     //layout mananger instance
     private lateinit var layoutManager: StaggeredGridLayoutManager
 
+    //root file
+    private lateinit var root: File
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +77,9 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
         //set the bottom app bar
         (requireActivity() as AppCompatActivity).setSupportActionBar(bottom_app_bar)
 
+        //root file
+        root = File(requireActivity().getExternalFilesDir("/"), AUDIO_PATH)
+
         /*
         attach layoutmanager to recyclerview
          */
@@ -86,7 +92,7 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
         //init view model according to the sort by pref
         setUpViewModelListObserver()
 
-        //enable swipe on recyclerview items with ItemTouchHelper object
+        //enable left swipe on recyclerview items with ItemTouchHelper object
         enableSwipe()
 
         //on new word fab button clicked
@@ -352,6 +358,7 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
      */
     fun deleteWord(name: String){
         viewModel.deleteWord(name)
+
     }
 
 
@@ -382,12 +389,19 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
                     //delete word
                     deleteWord(wordNameToDelete)
 
+
                     //show snackbar
                     val snackbar = Snackbar.make(requireView(), " Word deleted!", Snackbar.LENGTH_LONG)
                     snackbar.setAction("UNDO") {
                         // restore deleted word
                         restoreWord(wordNameToDelete)
                     }
+                    snackbar.addCallback(object : Snackbar.Callback(){
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            super.onDismissed(transientBottomBar, event)
+                            viewModel.deleteAudioForWord(root)
+                        }
+                    })
                     snackbar.setActionTextColor(Color.WHITE)
                     snackbar.show()
 
@@ -411,7 +425,7 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
                         val height = itemView.bottom.toFloat() - itemView.top.toFloat()
                         val width = height / 3
 
-                            p.color = Color.parseColor("#F6A247")
+                            p.color = Color.parseColor("#F65C47")
                             val background = RectF(
                                 itemView.right.toFloat() + dX,
                                 itemView.top.toFloat(),
