@@ -8,9 +8,6 @@ import android.view.ViewGroup
 
 import save.newwords.vocab.remember.R
 
-/**
- * A simple [Fragment] subclass.
- */
 class OptionsFragment : Fragment() {
 
     override fun onCreateView(

@@ -9,4 +9,12 @@
 
     <integer name="list_sort_pref_recent">12191618</integer>
     <integer name="list_sort_pref_alpha">12191601</integer>
+
+    <integer name="one_tap_to_edit_pref">0110516</integer>
+    <integer name="two_tap_edit_pref">0210516</integer>
+
+    <integer name="show_mean_by_def_pref">190216</integer>
+    <integer name="dont_show_mean_def_pref">020216</integer>
+
+
 </resources>

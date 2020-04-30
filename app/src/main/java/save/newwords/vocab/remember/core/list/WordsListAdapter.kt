@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.each_word_item_view.view.*
 import kotlinx.android.synthetic.main.each_word_item_view_grid.view.*
 import save.newwords.vocab.remember.R
-import save.newwords.vocab.remember.common.WORD_CLICKED
-import save.newwords.vocab.remember.common.WORD_PRONUNCIATION_BTN_CLICKED
-import save.newwords.vocab.remember.common.dontShow
-import save.newwords.vocab.remember.common.toggleVisibility
+import save.newwords.vocab.remember.common.*
 import save.newwords.vocab.remember.db.Word
 
 class WordsListAdapter(private val context: Context,
@@ -67,6 +64,9 @@ class WordsListAdapter(private val context: Context,
         private var imgBtnHearPronunciation: ImageButton = view.imgbtn_hear_pronun
 
         fun bind (word: Word, clickListener: (Word, Int) -> Unit){
+
+
+
             txtName.text = word.name
 
             //if meaning is null, don't show the show-meaning button
