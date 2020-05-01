@@ -13,8 +13,7 @@ import save.newwords.vocab.remember.R
 import save.newwords.vocab.remember.common.changeSharedPrefTo
 import save.newwords.vocab.remember.common.getFormattedTimeForUI
 import save.newwords.vocab.remember.common.getSharedPrefsFor
-import save.newwords.vocab.remember.core.options.DailyReminderTimePickerFragment
-import kotlin.math.min
+import save.newwords.vocab.remember.core.options.reminders.DailyReminderTimePickerFragment
 
 class OptionsFragment : Fragment(), DailyReminderTimePickerFragment.OnTimeSet {
 
@@ -142,7 +141,9 @@ class OptionsFragment : Fragment(), DailyReminderTimePickerFragment.OnTimeSet {
      * to show the time picker dialog
      */
     private fun showDailyReminderTimePickerDialog() {
-        DailyReminderTimePickerFragment(this).show(parentFragmentManager, "timePicker")
+        DailyReminderTimePickerFragment(
+            this
+        ).show(parentFragmentManager, "timePicker")
     }
 
     private fun updateTimeInUI(time: String) {
@@ -152,6 +153,8 @@ class OptionsFragment : Fragment(), DailyReminderTimePickerFragment.OnTimeSet {
     /**
      * the interface method where the time set in the picker is received
      * @see getFormattedTimeForUI
+     * @param hours from time picker
+     * @param minutes from time picker
      */
     override fun timeIsSet(hours: Int, minutes: Int) {
         val time = getFormattedTimeForUI(hours, minutes)

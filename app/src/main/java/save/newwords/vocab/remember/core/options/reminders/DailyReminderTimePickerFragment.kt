@@ -1,4 +1,4 @@
-package save.newwords.vocab.remember.core.options
+package save.newwords.vocab.remember.core.options.reminders
 
 import android.app.Dialog
 import android.app.TimePickerDialog
