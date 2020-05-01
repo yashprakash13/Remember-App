@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,11 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
     //root file
     private lateinit var root: File
 
+    //edit word shared pref
+    private lateinit var editWordSharedPref : SharedPreferences
+    private var editWordDefPrefValue : Int = 0
+    private var editWordCurrentPrefValue: Int = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +85,11 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
 
         //root file
         root = File(requireActivity().getExternalFilesDir("/"), AUDIO_PATH)
+
+        //edit word shared pref
+        editWordSharedPref = activity?.getSharedPrefsFor(R.string.tap_to_edit_key)!!
+        editWordDefPrefValue = resources.getInteger(R.integer.one_tap_to_edit_pref)
+        editWordCurrentPrefValue = editWordSharedPref.getInt(getString(R.string.tap_to_edit_key), editWordDefPrefValue)
 
         /*
         attach layoutmanager to recyclerview
@@ -112,10 +123,29 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
      * @see WORD_CLICKED and
      * @see WORD_PRONUNCIATION_BTN_CLICKED
      */
+    //the boolean value that tracks if within 2 seconds, the same word was clicked again or not
+    private var doubleTapToEditPressedOnce = false
+    //to check if the same word was clicked again within 2 seconds
+    private lateinit var wordClickedFirstTime : Word
     override fun invoke(wordClicked: Word, clickType: Int) {
         when(clickType){
             WORD_CLICKED -> {
-                navigateToEditWordFragment(wordClicked.name)
+                if (editWordCurrentPrefValue == editWordDefPrefValue){
+                    //current edit word pref is one tap to edit
+                    navigateToEditWordFragment(wordClicked.name)
+                }else{
+                    //current edit word pref is two taps to edit
+                    if (doubleTapToEditPressedOnce && wordClicked == wordClickedFirstTime){
+                        navigateToEditWordFragment(wordClicked.name)
+                    }
+                    //make sure the same word was clicked again
+                    wordClickedFirstTime = wordClicked
+                    makeToast("Tap again to edit")
+                    doubleTapToEditPressedOnce = true
+
+                    //if the same word wasn't clicked again within 2 seconds, make the value false
+                    Handler().postDelayed(Runnable { doubleTapToEditPressedOnce = false }, 2000)
+                }
             }
             WORD_PRONUNCIATION_BTN_CLICKED -> {
                 val root = File(requireActivity().getExternalFilesDir("/"), AUDIO_PATH)

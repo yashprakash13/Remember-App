@@ -92,7 +92,7 @@
                 android:id="@+id/txt_opt_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="One"
+                android:text="@string/label_one"
                 android:textColor="@color/colorAccent"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:paddingStart="@dimen/standard_padding"

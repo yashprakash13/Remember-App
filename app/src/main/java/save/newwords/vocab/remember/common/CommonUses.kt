@@ -98,6 +98,13 @@ fun Activity.getSharedPrefsFor(key: Int) : SharedPreferences{
 }
 
 /**
+ *  ext function to get instance of shared prefs
+ */
+fun Context.getSharedPrefsFor(key: Int) : SharedPreferences{
+    return getSharedPreferences(getString(key), Context.MODE_PRIVATE)
+}
+
+/**
  * ext function to change shared prefs
  */
 fun Activity.changeSharedPrefTo(prefLayoutManager: SharedPreferences, key: Int, whatToPut: Any, type: Int ){
@@ -121,6 +128,37 @@ internal fun TextInputLayout.isValid() : Boolean{
 
 internal fun TextInputLayout.getString() : String{
     return editText!!.text.toString().trim()
+}
+
+/**
+ * to return formatted time for UI updation
+ * @param hours from time picker
+ * @param minutes from time picker
+ */
+fun getFormattedTimeForUI(hours: Int, minutes: Int): String{
+    var isAM = true
+    var hrs: Int = hours
+
+    if (hours > 12){
+        isAM = false
+        hrs -= 12
+    }
+
+    val time : String
+    time = if (isAM) {
+        if (minutes < 10){
+            "$hrs:0$minutes AM"
+        }else{
+            "$hrs:$minutes AM"
+        }
+    }else{
+        if (minutes < 10){
+            "$hrs:0$minutes PM"
+        }else{
+            "$hrs:$minutes PM"
+        }
+    }
+    return time
 }
 
 

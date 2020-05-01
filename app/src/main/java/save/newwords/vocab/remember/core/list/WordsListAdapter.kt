@@ -39,12 +39,21 @@ class WordsListAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        val showMeanings = getIfToShowMeaningsOrNot()
+
         when (holder){
-            is WordItemViewHolder -> holder.bind(this.getItem(position)!!, clickListener)
+            is WordItemViewHolder -> holder.bind(this.getItem(position)!!, clickListener, showMeanings)
             is WordItemViewHolderGrid -> holder.bind(this.getItem(position)!!, clickListener)
         }
     }
 
+    private fun getIfToShowMeaningsOrNot(): Boolean {
+        val pref = context.getSharedPrefsFor(R.string.show_meanings_by_def_key)
+        val defValue = context.resources.getInteger(R.integer.show_mean_by_def_pref)
+        val prefCurrentValue = pref.getInt(context.getString(R.string.show_meanings_by_def_key), defValue)
+        return prefCurrentValue == defValue
+    }
 
 
     override fun getItemViewType(position: Int): Int {
@@ -63,9 +72,10 @@ class WordsListAdapter(private val context: Context,
         private var imgBtnShowMean: ImageButton = view.imgbtn_show_meaning
         private var imgBtnHearPronunciation: ImageButton = view.imgbtn_hear_pronun
 
-        fun bind (word: Word, clickListener: (Word, Int) -> Unit){
+        fun bind (word: Word, clickListener: (Word, Int) -> Unit, showMeanings: Boolean){
 
-
+            if (!showMeanings) txtMean.dontShow()
+            else txtMean.show()
 
             txtName.text = word.name
 
