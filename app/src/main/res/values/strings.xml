@@ -28,6 +28,9 @@
     <!--    in the list frag-->
     <string name="layout_pref_key">save.newwords.vocab.remember.LAYOUT_PREF_KEY</string>
     <string name="sort_by_pref_key">save.newwords.vocab.remember.SORT_BY_PREF_KEY</string>
+    <string name="daily_rem_pref_key">save.newwords.vocab.remember.DAILY_REM_PREF_KEY</string>
+    <string name="daily_rem_time_val_pref_key">save.newwords.vocab.remember.DAILY_REM_TIME_VAL_PREF_KEY</string>
+    <string name="daily_rem_time_val_pref_def_value">Not set</string>
 
     <!--in the settings frag    -->
     <string name="tap_to_edit_key">save.newwords.vocab.remember.TAP_TO_EDIT_KEY</string>

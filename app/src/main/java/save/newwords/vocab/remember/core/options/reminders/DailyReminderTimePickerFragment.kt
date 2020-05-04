@@ -24,7 +24,6 @@ class DailyReminderTimePickerFragment(private val timeSet: OnTimeSet) : DialogFr
     }
 
     override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
-        Log.e("Time= ", p1.toString() + p2.toString())
         setTimeUpInUI(hours = p1, minutes = p2)
     }
 
