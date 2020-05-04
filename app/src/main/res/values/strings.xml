@@ -65,6 +65,7 @@
     <string name="set_a_daily_reminder">Set a daily reminder</string>
     <string name="default_daily_rem_txt">Not set</string>
     <string name="num_tap">Number of Taps to Edit</string>
+    <string name="label_search">Search</string>
 
 
 </resources>

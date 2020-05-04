@@ -348,8 +348,18 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
                 changeLayoutForRecyclerview()
                 notifyAdapterAboutLayoutChange()
             }
+            R.id.menu_search_list -> {
+                navigateToSearchFragment()
+            }
         }
         return true
+    }
+
+    /**
+     * to go to search fragment to perform the search function
+     */
+    private fun navigateToSearchFragment() {
+        Navigation.findNavController(requireView()).navigate(R.id.action_listFragment_to_searchFragment)
     }
 
 

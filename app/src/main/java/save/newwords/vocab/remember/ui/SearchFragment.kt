@@ -8,9 +8,6 @@ import android.view.ViewGroup
 
 import save.newwords.vocab.remember.R
 
-/**
- * A simple [Fragment] subclass.
- */
 class SearchFragment : Fragment() {
 
     override fun onCreateView(
@@ -19,5 +16,7 @@ class SearchFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
+
+
 
 }
