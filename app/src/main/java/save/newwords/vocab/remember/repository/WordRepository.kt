@@ -43,7 +43,9 @@ class WordRepository(private val database: WordDatabase) {
         }
     }
 
-
+    fun searchFromDb(searchString: String) : LiveData<List<Word>> {
+        return database.wordDao().searchWords(searchString)
+    }
 
     //TODO implement other methods
 

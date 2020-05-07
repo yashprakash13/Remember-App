@@ -28,7 +28,7 @@ interface WordDao {
     @Query("Update word_table set name = :name, meaning = :meaning, audioPath = :audiopath where name like :originalName")
     fun updateWord(originalName: String, name: String, meaning:String?, audiopath: String?)
 
-    @Query("Select * from word_table where name like :s_name or meaning like :s_meaning")
-    fun searchWords(s_name: String, s_meaning: String) : LiveData<List<Word>>
+    @Query("Select * from word_table where name like :string or meaning like :string")
+    fun searchWords(string: String) : LiveData<List<Word>>
 
 }

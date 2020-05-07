@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/standard_margin"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textview.MaterialTextView
@@ -24,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_raleway"
-        android:textSize="@dimen/sub_standard_text_size"
+        android:textSize="@dimen/small_text_size"
+        android:textStyle="italic"
         android:maxLines="2"
         android:ellipsize="end"
         android:layout_margin="@dimen/standard_margin"

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Remember</string>
-    <string name="label_search">Search</string>
     <string name="new_quote_label">New Word</string>
     <string name="label_word_name">Word</string>
     <string name="label_meaning">Meaning… (optional)</string>

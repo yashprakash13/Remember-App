@@ -32,6 +32,8 @@
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginBottom="@dimen/standard_margin"
         android:padding="@dimen/standard_padding"
+        app:iconifiedByDefault="false"
+        app:queryHint="Type a word or meaning..."
         app:layout_constraintTop_toBottomOf="@id/search_word_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

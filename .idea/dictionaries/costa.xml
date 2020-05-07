@@ -1,12 +1,14 @@
 <component name="ProjectDictionaryState">
   <dictionary name="costa">
     <words>
+      <w>clicklistener</w>
       <w>coroutine</w>
       <w>functionalities</w>
       <w>newwords</w>
       <w>pagedlist</w>
       <w>snackbar</w>
       <w>viewmodel</w>
+      <w>wordlist</w>
     </words>
   </dictionary>
 </component>
