@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -28,6 +29,9 @@ class SearchFragment : Fragment(), (Word) -> Unit {
     //adapter instance
     private lateinit var adapter: SearchAdapter
 
+    /**
+     * inflate XML layout for fragment
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +43,8 @@ class SearchFragment : Fragment(), (Word) -> Unit {
         super.onViewCreated(view, savedInstanceState)
 
         //init viewmodel instance
-        val factory = SearchViewModelFactory(WordRepository(WordDatabase.getInstance(requireActivity())))
+        val factory = SearchViewModelFactory(
+            WordRepository(WordDatabase.getInstance(requireActivity())))
         viewModel = ViewModelProvider(this, factory).get(SearchViewModel::class.java)
 
         //init recyclerview
@@ -65,17 +70,16 @@ class SearchFragment : Fragment(), (Word) -> Unit {
             }
 
         })
-
-
     }
 
     /**
      * to get the live items from db and display in adapter
      */
     private fun getItemsFromDb(string: String?) {
+        //make sure the search string can be searched in between texts, at the start and at the end
         val searchText = "%$string%"
         viewModel.getSearchedWords(searchText).observe(viewLifecycleOwner, Observer {
-            //init adapter
+            //init adapter here, so that new data is shown everytime something new is typed
             adapter = SearchAdapter(requireContext(), this, it)
             search_recycler_view.adapter = adapter
         })
@@ -83,9 +87,12 @@ class SearchFragment : Fragment(), (Word) -> Unit {
 
     /**
      * the clicklistener for word clicked in search list
+     * @param wordClicked for sending the name to edit fragment
      */
     override fun invoke(wordClicked: Word) {
-        Log.e("searchClick", wordClicked.name )
+        val action = SearchFragmentDirections.
+            actionSearchFragmentToEditWordFragment(wordClicked.name)
+        Navigation.findNavController(requireView()).navigate(action)
     }
 
 }

@@ -57,7 +57,11 @@
         android:id="@+id/searchFragment"
         android:name="save.newwords.vocab.remember.ui.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_editWordFragment"
+            app:destination="@id/editWordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editWordFragment"
         android:name="save.newwords.vocab.remember.ui.EditWordFragment"
