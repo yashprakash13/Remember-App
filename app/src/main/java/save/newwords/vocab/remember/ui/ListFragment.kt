@@ -221,12 +221,19 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
         viewModel = ViewModelProvider(this, factory).get(WordsListViewModel::class.java)
 
         viewModel.getWordsPagedList().observe(viewLifecycleOwner, Observer {pagedList ->
-            if (pagedList != null){
+            if (pagedList != null && pagedList.size > 0){
                 adapter.submitList(pagedList)
+                recy_empty_view.dontShow()
+                recy_words_list.show()
+            }else{
+                Log.e("EMPTY:","recy")
+                recy_words_list.dontShow()
+                recy_empty_view.show()
             }
-            //TODO: Show empty recyclerview text/image in the else condition
         })
     }
+
+
     /**
      * helper function to
      * set up observer on pagedlist
@@ -237,10 +244,15 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
         viewModel = ViewModelProvider(this, factory).get(WordsListViewModel::class.java)
 
         viewModel.getWordsPagedList().observe(viewLifecycleOwner, Observer {pagedList ->
-            if (pagedList != null){
+            if (pagedList != null && pagedList.size > 0){
                 adapter.submitList(pagedList)
+                recy_empty_view.dontShow()
+                recy_words_list.show()
+            }else{
+                Log.e("EMPTY:","recy")
+                recy_words_list.dontShow()
+                recy_empty_view.show()
             }
-            //TODO: Show empty recyclerview text/image in the else condition
         })
     }
 

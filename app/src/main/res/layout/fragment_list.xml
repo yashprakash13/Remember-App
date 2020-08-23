@@ -21,6 +21,15 @@
             android:padding="@dimen/standard_padding"
             tools:listitem="@layout/each_word_item_view"
             />
+        <ImageView
+            android:id="@+id/recy_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/high_padding"
+            android:layout_margin="@dimen/high_margin"
+            android:src="@drawable/ic_stairsimg_empty_recyclerview"
+            android:visibility="gone"
+            />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
