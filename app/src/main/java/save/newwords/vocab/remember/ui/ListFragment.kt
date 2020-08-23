@@ -50,7 +50,7 @@ class ListFragment : Fragment(), (Word, Int) -> Unit {
     //adapter instance
     private lateinit var adapter: WordsListAdapter
 
-    //layout mananger instance
+    //layout manager instance
     private lateinit var layoutManager: StaggeredGridLayoutManager
 
     //root file

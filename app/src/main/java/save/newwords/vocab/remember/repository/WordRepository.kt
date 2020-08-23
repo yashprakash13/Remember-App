@@ -47,6 +47,4 @@ class WordRepository(private val database: WordDatabase) {
         return database.wordDao().searchWords(searchString)
     }
 
-    //TODO implement other methods
-
 }

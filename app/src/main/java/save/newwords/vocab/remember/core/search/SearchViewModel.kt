@@ -10,18 +10,13 @@ import save.newwords.vocab.remember.repository.WordRepository
 
 class SearchViewModel(private val repository: WordRepository) : ViewModel() {
 
-    //scope to perform db functions in viewmodel
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    //word list
-    lateinit var wordLiveData : LiveData<List<Word>>
-
+    /**
+     * to get the searched words from the db
+     * @param searchString the string containing a part of name or meaning to be searched
+     */
     fun getSearchedWords(searchString: String) : LiveData<List<Word>> {
         return repository.searchFromDb(searchString)
     }
-
-
 
 }
 

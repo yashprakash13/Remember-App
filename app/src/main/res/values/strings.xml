@@ -58,7 +58,7 @@
     <string name="send_a_feedback_for_this_app">Send a feedback for this app</string>
     <string name="read_the_privacy_policy_for_this_app">Read the privacy policy for this app</string>
     <string name="number_of_taps_to_edit_a_word">Number of taps to edit a word</string>
-    <string name="show_word_meanings_by_default">Show Word Meanings by Default</string>
+    <string name="show_word_meanings_by_default">Show word meanings in list view</string>
     <string name="app_options">App Options</string>
     <string name="set_a_time_when_you_want_to_be_reminded_to_store_new_words_each_day">Set a time when you want to be reminded to store new words each day.</string>
     <string name="set_a_daily_reminder">Set a daily reminder</string>

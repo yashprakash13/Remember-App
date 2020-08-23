@@ -177,72 +177,72 @@
             android:background="@color/colorPressed"
             />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/info_cons_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
-            app:layout_constraintTop_toBottomOf="@id/dividerView1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            >
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/app_info_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_info"
-                android:textSize="@dimen/sub_standard_text_size"
-                android:fontFamily="@font/font_raleway"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginBottom="@dimen/standard_margin"
-                android:padding="@dimen/standard_padding"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/info_cons_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/normal_margin"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/dividerView1"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="parent"-->
+<!--            >-->
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/app_info_label"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/app_info"-->
+<!--                android:textSize="@dimen/sub_standard_text_size"-->
+<!--                android:fontFamily="@font/font_raleway"-->
+<!--                android:layout_marginTop="@dimen/standard_margin"-->
+<!--                android:layout_marginStart="@dimen/standard_margin"-->
+<!--                android:layout_marginBottom="@dimen/standard_margin"-->
+<!--                android:padding="@dimen/standard_padding"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/opt_app_feedback_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/send_a_feedback_for_this_app"
-                android:fontFamily="@font/font_raleway"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginEnd="@dimen/standard_margin"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:padding="@dimen/normal_padding"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                app:icon="@drawable/ic_border_color_black_24dp"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintTop_toBottomOf="@id/app_info_label"
-                android:textAlignment="textStart"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/opt_app_feedback_btn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/send_a_feedback_for_this_app"-->
+<!--                android:fontFamily="@font/font_raleway"-->
+<!--                android:layout_marginStart="@dimen/standard_margin"-->
+<!--                android:layout_marginEnd="@dimen/standard_margin"-->
+<!--                android:layout_marginTop="@dimen/standard_margin"-->
+<!--                android:padding="@dimen/normal_padding"-->
+<!--                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
+<!--                app:icon="@drawable/ic_border_color_black_24dp"-->
+<!--                android:textColor="@color/colorBlack"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/app_info_label"-->
+<!--                android:textAlignment="textStart"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/opt_app_view_privacy_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/read_the_privacy_policy_for_this_app"
-                android:fontFamily="@font/font_raleway"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginEnd="@dimen/standard_margin"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:padding="@dimen/normal_padding"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                app:icon="@drawable/ic_info_outline_black_24dp"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintTop_toBottomOf="@id/opt_app_feedback_btn"
-                android:textAlignment="textStart"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/opt_app_view_privacy_btn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/read_the_privacy_policy_for_this_app"-->
+<!--                android:fontFamily="@font/font_raleway"-->
+<!--                android:layout_marginStart="@dimen/standard_margin"-->
+<!--                android:layout_marginEnd="@dimen/standard_margin"-->
+<!--                android:layout_marginTop="@dimen/standard_margin"-->
+<!--                android:padding="@dimen/normal_padding"-->
+<!--                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
+<!--                app:icon="@drawable/ic_info_outline_black_24dp"-->
+<!--                android:textColor="@color/colorBlack"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/opt_app_feedback_btn"-->
+<!--                android:textAlignment="textStart"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                />-->
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

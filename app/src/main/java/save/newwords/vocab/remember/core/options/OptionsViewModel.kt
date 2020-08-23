@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit
 
 class OptionsViewModel(private val context: Context) : ViewModel() {
 
+    //the coroutine scope for background job
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     //work manager periodic work request instance
