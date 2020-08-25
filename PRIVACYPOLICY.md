@@ -1,4 +1,4 @@
-**Privacy Policy**
+*Privacy Policy*
 
 Regency Apps built the *Remember* app as a Free app. This app is provided by Regency Apps at no cost and is intended for use as is.
 
