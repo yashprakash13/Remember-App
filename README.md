@@ -7,6 +7,8 @@
 <p align="center"><img src="https://img.shields.io/badge/Made%20Using-Kotlin-brightgreen?style=for-the-badge"></p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+### Get the app on [Google Play](https://play.google.com/store/apps/details?id=save.newwords.vocab.remember).
+
 ## Table of contents
 - [Basic Usage of the app](#basic-usage)
 - [Screenshots of the app in action](#a-few-screenshots)
