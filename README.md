@@ -7,7 +7,9 @@
 <p align="center"><img src="https://img.shields.io/badge/Made%20Using-Kotlin-brightgreen?style=for-the-badge"></p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-### Get the app on [Google Play](https://play.google.com/store/apps/details?id=save.newwords.vocab.remember).
+## Get the app on [Google Play](https://play.google.com/store/apps/details?id=save.newwords.vocab.remember).
+
+## Read the Medium article series in which I go over my entire work process for this project [here](https://medium.com/this-code/complete-app-from-scratch-kotlin-part-1-the-who-the-what-and-the-why-f9741f3504b) :)
 
 ## Table of contents
 - [Basic Usage of the app](#basic-usage)
