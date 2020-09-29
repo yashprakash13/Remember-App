@@ -37,6 +37,7 @@ You can:
   - NewWordFragment for entering new word in db
   - EditWordFragment for editing an existing word
   - OptionsFragment for the user preferences in the app
+  - SearchFragment for searching stored words
 * User preferences (settings) fragment for modifying the following settings in the app:
   - whether to tap once or twice to edit a word in the app
   - whether to show meanings by default in lists (grid and list)
@@ -50,7 +51,7 @@ You can:
   - FloatingActionButton
   - Material Textfields and Inputfields with Buttons (Outlined, Text and Normal)
 * Storing audio pronunciations in internal storage
-
+* Search functionality through both names and meanings of the words
 
  
 ## A Few Screenshots
